@@ -4,9 +4,13 @@ import io.konform.validation.Validation
 import io.konform.validation.jsonschema.maxLength
 import io.konform.validation.jsonschema.minimum
 import kotlinx.serialization.Serializable
+import ru.bezdar.bank.app.api.common.model.IdDto
+import ru.bezdar.bank.app.api.common.model.toDomain
 import ru.bezdar.bank.app.common.validation.Validated
 import ru.bezdar.bank.app.common.validation.isNotBlankAndEmpty
+import ru.bezdar.bank.domain.tariff.model.Tariff
 import ru.bezdar.bank.domain.tariff.model.params.NewTariffParams
+import ru.bezdar.bank.domain.tariff.model.params.UpdateTariffParams
 
 @Serializable
 data class CreateTariffBody(
@@ -24,7 +28,13 @@ data class CreateTariffBody(
     }
 }
 
-fun CreateTariffBody.toDomain() = NewTariffParams(
+fun CreateTariffBody.toDomainCreate() = NewTariffParams(
+    name = name,
+    interestRate = interestRate,
+)
+
+fun CreateTariffBody.toDomainUpdate(tariffId: IdDto) = UpdateTariffParams(
+    tariffId = tariffId.toDomain<Tariff>(),
     name = name,
     interestRate = interestRate,
 )
