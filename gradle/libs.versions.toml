@@ -1,0 +1,164 @@
+[versions]
+
+# Java
+java = "17"
+java-enum = "VERSION_17" # Используется в build.gradle.kts для asProvider() в tasks
+
+# Kotlin
+kotlin = "2.0.20"
+kotlinx-serialization-json = "1.7.2"
+coroutines = "1.6.2"
+
+# Dependency Check
+dependency-check = "7.1.0.1"
+
+# Detekt
+detekt = "1.21.0"
+
+# Ktor
+ktor-server = "2.3.6"
+ktor-client = "2.3.6"
+ktor-prometheus = "1.9.2"
+
+# Konform
+konform = "0.4.0"
+
+# Koin
+koin = "3.3.1"
+
+# Logback
+logback = "1.4.14"
+
+# Exposed
+exposed = "0.40.1"
+
+# Hikari
+hikari = "5.0.1"
+
+# Flyway
+flyway = "9.16.0"
+
+# Postgree
+postgree = "42.7.2"
+
+# Reflections
+reflections = "0.10.2"
+
+# BuildConfig
+build-config = "3.1.0"
+
+# Docker
+docker-java = "7.4.0"
+
+[libraries]
+
+# Kotlin
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
+
+# Dependency Check
+dependencyCheck = { module = "org.owasp:dependency-check-gradle", version.ref = "dependency-check" }
+
+# Detekt
+detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+
+# Ktor Server
+ktor-server-host = { module = "io.ktor:ktor-server-host-common", version.ref = "ktor-server" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor-server" }
+ktor-server-resources = { module = "io.ktor:ktor-server-resources", version.ref = "ktor-server" }
+ktor-server-content-negotation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor-server" }
+ktor-server-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-server" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor-server" }
+ktor-server-default-headers = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor-server" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor-server" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor-server" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor-server" }
+ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor-server" }
+ktor-server-micrometer = { module = "io.ktor:ktor-server-metrics-micrometer", version.ref = "ktor-server" }
+ktor-server-prometheus = { module = "io.micrometer:micrometer-registry-prometheus", version.ref = "ktor-prometheus" }
+
+# Konform
+konform = { module = "io.konform:konform-jvm", version.ref = "konform" }
+
+# Koin
+koin = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
+
+# Logback
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+# Ktor Client
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor-client" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor-client" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor-client" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor-client" }
+ktor-client-content-negotation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-client" }
+ktor-client-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-client" }
+
+# Exposed
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
+
+# Flyway
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+
+# Hikari
+hikari = { module = "com.zaxxer:HikariCP", version.ref = "hikari" }
+
+# Postgree
+postgree-connector = { module = "org.postgresql:postgresql", version.ref = "postgree" }
+
+# Reflections
+reflections = { module = "org.reflections:reflections", version.ref = "reflections" }
+
+# BuildConfig
+build-config-plugin = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version.ref = "build-config" }
+
+# Docker
+docker-java-plugin = { module = "com.bmuschko:gradle-docker-plugin", version.ref = "docker-java" }
+
+[plugins]
+
+kotlin-gradle-plugin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "build-config" }
+docker-java = { id = "com.bmuschko.docker-java-application", version.ref = "docker-java" }
+
+# Dependency Check
+dependencyCheck = { id = "org.owasp.dependencycheck", version.ref = "dependency-check" }
+
+# Detekt
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+[bundles]
+
+ktor-server = [
+    "ktor-server-host",
+    "ktor-server-netty",
+    "ktor-server-resources",
+    "ktor-server-content-negotation",
+    "ktor-server-serialization-json",
+    "ktor-server-cors",
+    "ktor-server-default-headers",
+    "ktor-server-call-logging",
+    "ktor-server-status-pages",
+    "ktor-server-auth",
+    "ktor-server-auth-jwt",
+    "ktor-server-micrometer",
+    "ktor-server-prometheus"
+]
+
+ktor-client = [
+    "ktor-client-core",
+    "ktor-client-cio",
+    "ktor-client-auth",
+    "ktor-client-logging",
+    "ktor-client-content-negotation",
+    "ktor-client-serialization-json"
+]
