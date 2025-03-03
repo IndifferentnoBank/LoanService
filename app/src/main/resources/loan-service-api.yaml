@@ -1,0 +1,335 @@
+openapi: 3.0.3
+info:
+  title: Loan Service API
+  description: 'Актуализировано: 3 марта 2025' 
+  version: '0.0.2'
+servers:
+  - url: '/api'
+
+paths:
+  /v1/tariffs:
+    get:
+      summary: 'Получение тарифов'
+      tags:
+        - 'Тарифы'
+      responses:
+        '200':
+          description: 'Тарифы'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tariff'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      summary: 'Создание тарифа'
+      tags:
+        - 'Тарифы'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                interestRate:
+                  type: integer
+                  format: double
+              required:
+                - name
+                - interestRate
+      responses:
+        '201':
+          description: 'Тариф успешно создан'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/tariffs/{tariffId}:
+    parameters:
+      - in: path
+        name: tariffId
+        required: true
+        schema:
+          type: string
+          format: uuid
+
+    put:
+      summary: 'Изменение тарифа'
+      tags:
+        - 'Тарифы'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                interestRate:
+                  type: integer
+                  format: double
+              required:
+                - name
+                - interestRate
+      responses:
+        '201':
+          description: 'Тариф успешно изменен'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tariff'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      summary: 'Удаление тарифа'
+      tags:
+        - 'Тарифы'
+      responses:
+        '204':
+          description: 'Тариф удален успешно'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/loans:
+    get:
+      summary: 'Получение кредитов'
+      tags:
+        - 'Кредиты'
+      responses:
+        '200':
+          description: 'Кредиты'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      summary: 'Взятие кредита'
+      tags:
+        - 'Кредиты'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                tariff:
+                  type: string
+                  format: uuid
+                bankAccountId:
+                  type: string
+                  format: uuid
+                startDate:
+                  type: string
+                  format: date
+                endDate:
+                  type: string
+                  format: date
+                sum:
+                  type: integer
+                  format: double
+              required:
+                - tariff
+                - bankAccountId
+                - startDate
+                - endDate
+                - sum
+      responses:
+        '201':
+          description: 'Кредит успешно создан'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1/loans/{loanId}:
+    parameters:
+      - in: path
+        name: loanId
+        required: true
+        schema:
+          type: string
+          format: uuid
+
+    get:
+      summary: 'Получение кредита'
+      tags:
+        - 'Кредиты'
+      responses:
+        '200':
+          description: 'Кредит'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      summary: 'Погашение кредита'
+      tags:
+        - 'Кредиты'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                sum:
+                  type: integer
+                  format: double
+              required:
+                - sum
+      responses:
+        '201':
+          description: 'Кредит успешно погашен'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    Error:
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+          nullable: true
+      required:
+        - code
+
+    Tariff:
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        interestRate:
+          type: integer
+          format: double
+      required:
+        - id
+        - name
+        - interestRate
+
+    Loan:
+      properties:
+        id:
+          type: string
+          format: uuid
+        tariff:
+          $ref: '#/components/schemas/Tariff'
+        bankAccountId:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        paidSum:
+          type: integer
+          format: double
+        monthlyPayment:
+          type: integer
+          format: double
+        debt:
+          type: integer
+          format: double
+      required:
+        - id
+        - tariff
+        - bankAccountId
+        - startDate
+        - endDate
+        - paidSum
+        - monthlyPayment
+        - debt
+
+  responses:
+    InternalServerError:
+      description: 'Internal Server Error'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 'InternalServerError'
+            message: 'Something went wrong'
+
+    BadRequestError:
+      description: 'Bad Request Error'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 'InvalidToken'
+            message: 'Provided invalid refresh token'
+
+    NotFoundError:
+      description: 'Not Found Error'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 'NotFoundError'
+            message: 'User not found'
+
+    ForbiddenError:
+      description: 'Action is forbidden'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 'ForbiddenError'
+            message: "User can't do this action"
+
+    UnauthorizedError:
+      description: 'Access token is missing or invalid'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: 'UnauthorizedError'
+            message: 'User not authorized'
