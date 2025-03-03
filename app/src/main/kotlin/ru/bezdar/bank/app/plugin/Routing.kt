@@ -5,13 +5,18 @@ import io.ktor.server.application.install
 import io.ktor.server.resources.Resources
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
+import ru.bezdar.bank.app.api.loan.configureLoanRouting
+import ru.bezdar.bank.app.api.tariff.configureTariffRouting
 
 fun Application.configureRouting() {
-    install(Resources)
+    install(Resources) {
+        serializersModule = SerializationConfig.serializersModule
+    }
 
     routing {
-        route("mobile") {
-
+        route("api") {
+            configureLoanRouting()
+            configureTariffRouting()
         }
     }
 }
