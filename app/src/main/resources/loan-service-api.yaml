@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
   title: Loan Service API
-  description: 'Актуализировано: 3 марта 2025' 
-  version: '0.0.2'
+  description: 'Актуализировано: 4 марта 2025'
+  version: '0.0.3'
 servers:
-  - url: '/api'
+  - url: '/api/loan-service'
 
 paths:
   /v1/tariffs:
@@ -127,6 +127,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 
     post:
+      description: 'Минимальная сумма равна 1. Дата конца должна быть больше даты начала'
       summary: 'Взятие кредита'
       tags:
         - 'Кредиты'
@@ -136,7 +137,7 @@ paths:
           application/json:
             schema:
               properties:
-                tariff:
+                tariffId:
                   type: string
                   format: uuid
                 bankAccountId:
@@ -152,7 +153,7 @@ paths:
                   type: integer
                   format: double
               required:
-                - tariff
+                - tariffId
                 - bankAccountId
                 - startDate
                 - endDate
@@ -301,8 +302,8 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
           example:
-            code: 'InvalidToken'
-            message: 'Provided invalid refresh token'
+            code: 'InvalidUUID'
+            message: 'Provided invalid UUID'
 
     NotFoundError:
       description: 'Not Found Error'
@@ -312,24 +313,4 @@ components:
             $ref: '#/components/schemas/Error'
           example:
             code: 'NotFoundError'
-            message: 'User not found'
-
-    ForbiddenError:
-      description: 'Action is forbidden'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            code: 'ForbiddenError'
-            message: "User can't do this action"
-
-    UnauthorizedError:
-      description: 'Access token is missing or invalid'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            code: 'UnauthorizedError'
-            message: 'User not authorized'
+            message: 'Loan not found'
