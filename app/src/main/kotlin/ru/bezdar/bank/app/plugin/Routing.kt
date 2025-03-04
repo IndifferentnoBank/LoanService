@@ -15,8 +15,10 @@ fun Application.configureRouting() {
 
     routing {
         route("api") {
-            configureLoanRouting()
-            configureTariffRouting()
+            route("loan-service") {
+                configureLoanRouting()
+                configureTariffRouting()
+            }
         }
     }
 }

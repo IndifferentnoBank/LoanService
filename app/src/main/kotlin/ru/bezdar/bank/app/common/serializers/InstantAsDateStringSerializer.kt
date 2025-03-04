@@ -10,7 +10,6 @@ import ru.bezdar.bank.app.common.DateFormattingUtils.formatToString
 import ru.bezdar.bank.app.common.DateFormattingUtils.toInstant
 import ru.bezdar.bank.app.common.DateFormattingUtils.toLocalDate
 import java.time.Instant
-import java.time.format.DateTimeFormatter
 
 object InstantAsDateStringSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor
@@ -22,6 +21,6 @@ object InstantAsDateStringSerializer : KSerializer<Instant> {
     }
 
     override fun serialize(encoder: Encoder, value: Instant) {
-        encoder.encodeString(value.formatToString(DateTimeFormatter.ISO_LOCAL_DATE))
+        encoder.encodeString(value.formatToString())
     }
 }

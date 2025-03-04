@@ -17,9 +17,9 @@ abstract class BadRequestError : ApplicationError()
 class InvalidFields(override val message: String? = null) : BadRequestError()
 class InvalidUUID(override val message: String? = "Provided invalid UUID") : BadRequestError()
 class InvalidRate(override val message: String? = "Provided invalid Rate") : BadRequestError()
+class InvalidDate(override val message: String? = "Provided invalid Date range") : BadRequestError()
 
 abstract class ConflictError : ApplicationError()
 
 class TariffAlreadyExists(override val message: String? = "Tariff already exists") : ConflictError()
-
-abstract class InternalServerError : ApplicationError()
+class LoanAlreadyPaid(override val message: String? = "Loan already paid") : ConflictError()
