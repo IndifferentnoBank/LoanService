@@ -1,14 +1,15 @@
 openapi: 3.0.3
 info:
   title: Loan Service API
-  description: 'Актуализировано: 4 марта 2025'
-  version: '0.0.3'
+  description: 'Актуализировано: 6 марта 2025'
+  version: '0.0.4'
 servers:
   - url: '/api/loan-service'
 
 paths:
   /v1/tariffs:
     get:
+      description: 'Для сотрудников'
       summary: 'Получение тарифов'
       tags:
         - 'Тарифы'
@@ -27,6 +28,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 
     post:
+      description: 'Для сотрудников'
       summary: 'Создание тарифа'
       tags:
         - 'Тарифы'
@@ -66,6 +68,7 @@ paths:
           format: uuid
 
     put:
+      description: 'Для сотрудников'
       summary: 'Изменение тарифа'
       tags:
         - 'Тарифы'
@@ -96,6 +99,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 
     delete:
+      description: 'Для сотрудников'
       summary: 'Удаление тарифа'
       tags:
         - 'Тарифы'
@@ -109,6 +113,7 @@ paths:
 
   /v1/loans:
     get:
+      description: 'Для сотрудников'
       summary: 'Получение кредитов'
       tags:
         - 'Кредиты'
@@ -127,7 +132,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 
     post:
-      description: 'Минимальная сумма равна 1. Дата конца должна быть больше даты начала'
+      description: 'Для клиента. Минимальная сумма равна 1. Дата конца должна быть больше даты начала'
       summary: 'Взятие кредита'
       tags:
         - 'Кредиты'
@@ -170,6 +175,33 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
+  /v1/loans/{userId}:
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+          format: uuid
+
+    get:
+      summary: 'Получение кредитов пользователя'
+      tags:
+        - 'Кредиты'
+      responses:
+        '200':
+          description: 'Кредиты'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
   /v1/loans/{loanId}:
     parameters:
       - in: path
@@ -196,6 +228,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 
     post:
+      description: 'Для клиентов'
       summary: 'Погашение кредита'
       tags:
         - 'Кредиты'
