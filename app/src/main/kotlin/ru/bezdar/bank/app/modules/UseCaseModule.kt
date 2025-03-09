@@ -7,6 +7,8 @@ import ru.bezdar.bank.domain.loan.usecase.CreateLoanUseCase
 import ru.bezdar.bank.domain.loan.usecase.CreateLoanUseCaseImpl
 import ru.bezdar.bank.domain.loan.usecase.GetLoanByIdUseCase
 import ru.bezdar.bank.domain.loan.usecase.GetLoanByIdUseCaseImpl
+import ru.bezdar.bank.domain.loan.usecase.GetLoanByUserIdUseCase
+import ru.bezdar.bank.domain.loan.usecase.GetLoanByUserIdUseCaseImpl
 import ru.bezdar.bank.domain.loan.usecase.GetLoanUseCase
 import ru.bezdar.bank.domain.loan.usecase.GetLoanUseCaseImpl
 import ru.bezdar.bank.domain.loan.usecase.PayLoanUseCase
@@ -34,6 +36,7 @@ val useCaseModule = module {
     factoryOf(::GetLoanUseCaseImpl) bind GetLoanUseCase::class
     factoryOf(::GetLoanByIdUseCaseImpl) bind GetLoanByIdUseCase::class
     factoryOf(::PayLoanUseCaseImpl) bind PayLoanUseCase::class
+    factoryOf(::GetLoanByUserIdUseCaseImpl) bind GetLoanByUserIdUseCase::class
     // endregion
 
 }
