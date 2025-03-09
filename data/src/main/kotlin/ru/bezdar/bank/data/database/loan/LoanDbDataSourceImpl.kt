@@ -10,6 +10,7 @@ import ru.bezdar.bank.data.database.tariff.entity.TariffEntity
 import ru.bezdar.bank.domain.common.error.LoanNotFound
 import ru.bezdar.bank.domain.common.error.TariffNotFound
 import ru.bezdar.bank.domain.common.model.Id
+import ru.bezdar.bank.domain.common.model.User
 import ru.bezdar.bank.domain.loan.LoanDbDataSource
 import ru.bezdar.bank.domain.loan.model.Loan
 import ru.bezdar.bank.domain.loan.model.params.NewLoanParams
@@ -44,6 +45,10 @@ class LoanDbDataSourceImpl(override val database: Database) : LoanDbDataSource, 
 
     override suspend fun getLoanById(params: Id<Loan>): Loan = dbQuery {
         LoanEntity.findById(params.value)?.toDomain() ?: throw LoanNotFound()
+    }
+
+    override suspend fun getLoanByUserId(userId: Id<User>): List<Loan> = dbQuery {
+        LoanEntity.find { LoanTable.bankAccountId eq userId.value }.map { it.toDomain() }
     }
 
     override suspend fun payLoanById(params: PayLoanParams): Loan = dbQuery {

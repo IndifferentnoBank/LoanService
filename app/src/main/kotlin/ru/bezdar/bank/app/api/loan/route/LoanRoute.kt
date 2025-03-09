@@ -13,4 +13,8 @@ sealed class LoanRoute {
     @Serializable
     @Resource("/loans/{loanId}")
     class Loan(val loanId: IdDto) : LoanRoute()
+
+    @Serializable
+    @Resource("/loans/users/{userId}")
+    class LoanUser(val userId: IdDto) : LoanRoute()
 }

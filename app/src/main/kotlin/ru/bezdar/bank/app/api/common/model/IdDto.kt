@@ -12,3 +12,5 @@ value class IdDto(@Contextual val value: UUID)
 internal fun <T> IdDto.toDomain(): Id<T> = Id(value)
 
 internal fun <T> Id<T>.toResponse(): IdDto = IdDto(value)
+
+internal fun UUID.toDto(): IdDto = IdDto(this)

@@ -7,6 +7,7 @@ import ru.bezdar.bank.app.api.common.model.IdDto
 import ru.bezdar.bank.app.api.common.model.toDomain
 import ru.bezdar.bank.app.common.serializers.InstantAsDateStringSerializer
 import ru.bezdar.bank.app.common.validation.Validated
+import ru.bezdar.bank.domain.common.model.User
 import ru.bezdar.bank.domain.loan.model.params.NewLoanParams
 import ru.bezdar.bank.domain.tariff.model.Tariff
 import java.time.Instant
@@ -28,10 +29,11 @@ data class CreateLoanBody(
     }
 }
 
-fun CreateLoanBody.toDomain() = NewLoanParams(
+fun CreateLoanBody.toDomain(userId: IdDto) = NewLoanParams(
     tariffId = tariffId.toDomain<Tariff>(),
     bankAccountId = bankAccountId.value,
     startDate = startDate,
     endDate = endDate,
     sum = sum,
+    userId = userId.toDomain<User>()
 )

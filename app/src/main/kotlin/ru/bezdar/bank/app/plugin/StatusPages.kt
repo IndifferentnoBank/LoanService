@@ -12,6 +12,7 @@ import ru.bezdar.bank.domain.common.error.ApplicationError
 import ru.bezdar.bank.domain.common.error.BadRequestError
 import ru.bezdar.bank.domain.common.error.ConflictError
 import ru.bezdar.bank.domain.common.error.NotFoundError
+import ru.bezdar.bank.domain.common.error.PaymentRequiredError
 
 @Suppress("LongMethod")
 fun Application.configureStatusPages() {
@@ -30,6 +31,15 @@ fun Application.configureStatusPages() {
             call.respondError(
                 status = HttpStatusCode.BadRequest,
                 errorCode = BadRequestError::class.java.simpleName,
+                message = cause.message
+            )
+        }
+
+        exception<PaymentRequiredError> { call, cause ->
+            call.logError(cause)
+            call.respondError(
+                status = HttpStatusCode.PaymentRequired,
+                errorCode = cause.code,
                 message = cause.message
             )
         }
