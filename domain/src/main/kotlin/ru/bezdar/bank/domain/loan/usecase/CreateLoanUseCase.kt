@@ -21,12 +21,16 @@ class CreateLoanUseCaseImpl(
     override suspend fun execute(param: NewLoanParams): Loan {
         if (param.endDate <= param.startDate) throw InvalidDate()
 
-        val response: GetBankAccountResponse = client.get("http://51.250.33.133:8081/bank_accounts/{${param.bankAccountId}}?${param.userId}") {
+        val response: String = client.get("http://51.250.33.133:8081/bank_accounts/{${param.bankAccountId}}?userId=${param.userId.value}") {
             contentType(ContentType.Application.Json)
         }.body()
 
-        if (response.isClosed == false) {
-            return loanDbDataSource.createLoan(param)
+        if (response.indexOf("isClosed") != -1) {
+            if (response.indexOf("false") != -1) {
+                return loanDbDataSource.createLoan(param)
+            } else {
+                throw BankAccountNotFount()
+            }
         } else {
             throw BankAccountNotFount()
         }

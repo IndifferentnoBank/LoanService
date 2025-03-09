@@ -27,7 +27,7 @@ class PayLoanUseCaseImpl(
         val loan = loanDbDataSource.getLoanById(param.loanId)
         val requestBody = TransactionsBody(TransactionTypes.AUTOPAY_LOAN, loan.monthlyPayment)
 
-        val response: String = client.post("http://51.250.33.133:8081/bank_accounts/{${loan.bankAccountId}}/transactions?${param.userId}") {
+        val response: String = client.post("http://51.250.33.133:8081/bank_accounts/{${loan.bankAccountId}}/transactions?userId=${param.userId.value}") {
             contentType(ContentType.Application.Json)
             setBody(requestBody)
         }.body()
