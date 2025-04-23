@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: bezdar_db
+      POSTGRES_USER: bezdar_user
+      POSTGRES_PASSWORD: bezdar_password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: ./app/build/docker/Dockerfile
+    container_name: ktor-app
+    depends_on:
+      - db
+    ports:
+      - "8800:8800"
+    environment:
+      DATABASE_JDBC_URL: jdbc:postgresql://db:5432/bezdar_db
+      DATABASE_USERNAME: bezdar_user
+      DATABASE_PASSWORD: bezdar_password
+    networks:
+      - ktor-net
+
+volumes:
+  pg_data:
+
+networks:
+  ktor-net:

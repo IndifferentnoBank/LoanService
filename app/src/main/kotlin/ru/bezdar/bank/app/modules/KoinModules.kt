@@ -9,5 +9,6 @@ object KoinModules {
         datasourceModule,
         useCaseModule,
         controllerModule,
+        authModule,
     )
 }

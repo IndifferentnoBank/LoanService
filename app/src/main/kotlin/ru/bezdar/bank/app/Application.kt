@@ -2,6 +2,7 @@ package ru.bezdar.bank.app
 
 import io.ktor.server.application.Application
 import io.ktor.server.netty.EngineMain
+import ru.bezdar.bank.app.plugin.configureAuth
 import ru.bezdar.bank.app.plugin.configureCors
 import ru.bezdar.bank.app.plugin.configureFlyway
 import ru.bezdar.bank.app.plugin.configureKoin
@@ -16,6 +17,7 @@ fun main(args: Array<String>) = EngineMain.main(args)
 fun Application.module() {
     configureCors()
     configureKoin()
+    configureAuth()
     configureFlyway()
     configureMonitoring()
     configureRouting()

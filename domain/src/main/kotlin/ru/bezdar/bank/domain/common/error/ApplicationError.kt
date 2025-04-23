@@ -19,6 +19,7 @@ class InvalidFields(override val message: String? = null) : BadRequestError()
 class InvalidUUID(override val message: String? = "Provided invalid UUID") : BadRequestError()
 class InvalidRate(override val message: String? = "Provided invalid Rate") : BadRequestError()
 class InvalidDate(override val message: String? = "Provided invalid Date range") : BadRequestError()
+class InvalidRefreshToken(override val message: String? = "Provided invalid refresh token") : BadRequestError()
 
 abstract class ConflictError : ApplicationError()
 

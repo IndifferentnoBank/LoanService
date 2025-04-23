@@ -14,6 +14,8 @@ import ru.bezdar.bank.domain.loan.model.Loan
 import ru.bezdar.bank.domain.loan.model.body.TransactionTypes
 import ru.bezdar.bank.domain.loan.model.body.TransactionsBody
 import ru.bezdar.bank.domain.loan.model.params.PayLoanParams
+import ru.bezdar.bank.domain.loan.model.response.CreateTransactionResponse
+import ru.bezdar.bank.domain.loan.usecase.manage.createTransaction
 
 interface PayLoanUseCase : UseCase<PayLoanParams, Loan>
 
@@ -25,17 +27,13 @@ class PayLoanUseCaseImpl(
         if (loanAlreadyPaid) throw LoanAlreadyPaid()
 
         val loan = loanDbDataSource.getLoanById(param.loanId)
-        val requestBody = TransactionsBody(TransactionTypes.AUTOPAY_LOAN, loan.monthlyPayment)
+        val requestBody = TransactionsBody(TransactionTypes.PAY_LOAN, loan.monthlyPayment)
 
-        val response: String = client.post("http://51.250.33.133:8081/bank_accounts/{${loan.bankAccountId}}/transactions?userId=${param.userId.value}") {
-            contentType(ContentType.Application.Json)
-            setBody(requestBody)
-        }.body()
-
-        if (response.indexOf("message") == -1) {
-            return loanDbDataSource.payLoanById(param)
-        } else {
-            throw PaymentIsNotConfirmed()
-        }
+        val response : CreateTransactionResponse = createTransaction(
+            loan.bankAccountId,
+            param.userId.value,
+            requestBody
+        )
+        return loanDbDataSource.payLoanById(param)
     }
 }

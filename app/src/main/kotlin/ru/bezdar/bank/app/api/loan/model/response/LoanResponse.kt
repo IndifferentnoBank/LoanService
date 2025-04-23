@@ -7,6 +7,7 @@ import ru.bezdar.bank.app.api.tariff.model.response.TariffResponse
 import ru.bezdar.bank.app.api.tariff.model.response.toResponse
 import ru.bezdar.bank.app.common.serializers.InstantAsDateStringSerializer
 import ru.bezdar.bank.app.common.serializers.UUIDAsStringSerializer
+import ru.bezdar.bank.domain.common.model.User
 import ru.bezdar.bank.domain.loan.model.Loan
 import java.time.Instant
 import java.util.UUID
@@ -14,6 +15,7 @@ import java.util.UUID
 @Serializable
 data class LoanResponse(
     val id: IdDto,
+    val userId: IdDto?,
     val tariff: TariffResponse,
     @Serializable(with = UUIDAsStringSerializer::class)
     val bankAccountId: UUID,
@@ -28,6 +30,7 @@ data class LoanResponse(
 
 fun Loan.toResponse() = LoanResponse(
     id = id.toResponse(),
+    userId = null,
     tariff = tariff.toResponse(),
     bankAccountId = bankAccountId,
     startDate = startDate,

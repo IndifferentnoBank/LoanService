@@ -1,8 +1,8 @@
 [versions]
 
 # Java
-java = "17"
-java-enum = "VERSION_17" # Используется в build.gradle.kts для asProvider() в tasks
+java = "21"
+java-enum = "VERSION_21" # Используется в build.gradle.kts для asProvider() в tasks
 
 # Kotlin
 kotlin = "2.0.20"
@@ -48,7 +48,7 @@ reflections = "0.10.2"
 build-config = "3.1.0"
 
 # Docker
-docker-java = "7.4.0"
+docker-java = "9.4.0"
 
 [libraries]
 

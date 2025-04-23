@@ -1,11 +1,13 @@
 package ru.bezdar.bank.domain.loan.model.response
 
-import kotlinx.serialization.Serializable
+import java.time.Instant
+import java.util.UUID
 
-@Serializable
-data class GetBankAccountResponse(
+class GetBankAccountResponse(
+    val id: UUID,
     val name: String,
     val accountNumber: String,
     val balance: Double,
     val isClosed: Boolean,
+    val createdAt: Instant,
 )
