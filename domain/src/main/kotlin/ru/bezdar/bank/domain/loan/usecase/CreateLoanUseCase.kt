@@ -16,7 +16,7 @@ class CreateLoanUseCaseImpl(
     override suspend fun execute(param: NewLoanParams): Loan {
         if (param.endDate <= param.startDate) throw InvalidDate()
 
-        val response = getRequest(param.bankAccountId, param.userId.value)
+        val response = getRequest(param.bankAccountId, param.userId.value, param.token)
 
         if (response.isClosed == false) {
             return loanDbDataSource.createLoan(param)

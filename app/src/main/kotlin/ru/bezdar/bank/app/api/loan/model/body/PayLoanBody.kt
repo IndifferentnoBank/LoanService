@@ -21,8 +21,9 @@ data class PayLoanBody(
     }
 }
 
-fun PayLoanBody.toDomain(loanId: IdDto, userId: IdDto) = PayLoanParams(
+fun PayLoanBody.toDomain(loanId: IdDto, userId: IdDto, token: String) = PayLoanParams(
     loanId = loanId.toDomain<Loan>(),
     sum = sum,
     userId = userId.toDomain<User>(),
+    token = token,
 )

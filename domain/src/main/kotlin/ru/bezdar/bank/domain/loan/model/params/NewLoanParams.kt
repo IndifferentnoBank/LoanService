@@ -13,4 +13,5 @@ data class NewLoanParams(
     val endDate: Instant,
     val sum: Double,
     val userId: Id<User>,
+    val token: String,
 )

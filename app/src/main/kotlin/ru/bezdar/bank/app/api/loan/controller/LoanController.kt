@@ -23,8 +23,8 @@ class LoanController(
     private val getLoanByUserIdUseCase: GetLoanByUserIdUseCase,
 ) {
 
-    suspend fun createLoan(body: CreateLoanBody, userId: IdDto): LoanResponse {
-        return createLoanUseCase(body.toDomain(userId)).getOrThrow().toResponse()
+    suspend fun createLoan(body: CreateLoanBody, userId: IdDto, token: String): LoanResponse {
+        return createLoanUseCase(body.toDomain(userId, token)).getOrThrow().toResponse()
     }
 
     suspend fun getLoans(): List<LoanResponse> {
@@ -35,8 +35,8 @@ class LoanController(
         return getLoanUseCase(loanId.toDomain<Loan>()).getOrThrow().toResponse()
     }
 
-    suspend fun payLoan(loanId: IdDto, userId: IdDto, body: PayLoanBody): LoanResponse {
-        return payLoanUseCase(body.toDomain(loanId, userId)).getOrThrow().toResponse()
+    suspend fun payLoan(loanId: IdDto, userId: IdDto, body: PayLoanBody, token: String): LoanResponse {
+        return payLoanUseCase(body.toDomain(loanId, userId, token)).getOrThrow().toResponse()
     }
 
     suspend fun getLoanByUserId(userId: IdDto): List<LoanResponse> {

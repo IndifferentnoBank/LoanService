@@ -29,11 +29,12 @@ data class CreateLoanBody(
     }
 }
 
-fun CreateLoanBody.toDomain(userId: IdDto) = NewLoanParams(
+fun CreateLoanBody.toDomain(userId: IdDto, token: String) = NewLoanParams(
     tariffId = tariffId.toDomain<Tariff>(),
     bankAccountId = bankAccountId.value,
     startDate = startDate,
     endDate = endDate,
     sum = sum,
-    userId = userId.toDomain<User>()
+    userId = userId.toDomain<User>(),
+    token = token,
 )

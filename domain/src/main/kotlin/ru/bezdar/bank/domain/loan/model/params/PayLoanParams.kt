@@ -8,4 +8,5 @@ data class PayLoanParams(
     val loanId: Id<Loan>,
     val sum: Double,
     val userId: Id<User>,
+    val token: String,
 )
