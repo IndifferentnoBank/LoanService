@@ -7,6 +7,7 @@ CREATE TABLE loans (
     paid_sum            DOUBLE PRECISION NOT NULL,
     monthly_payment     DOUBLE PRECISION NOT NULL,
     debt                DOUBLE PRECISION NOT NULL,
+    user_id             UUID NOT NULL,
 
     FOREIGN KEY (tariff_id) REFERENCES tariffs (id)
 )

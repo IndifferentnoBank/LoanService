@@ -35,6 +35,7 @@ class LoanDbDataSourceImpl(override val database: Database) : LoanDbDataSource, 
             this.paidSum = 0.toDouble()
             this.monthlyPayment = params.sum/daysAmount
             this.debt = params.sum
+            this.userId = params.userId.value
         }
         loanEntity.toDomain()
     }

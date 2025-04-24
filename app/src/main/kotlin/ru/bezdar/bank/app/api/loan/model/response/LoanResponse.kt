@@ -2,12 +2,12 @@ package ru.bezdar.bank.app.api.loan.model.response
 
 import kotlinx.serialization.Serializable
 import ru.bezdar.bank.app.api.common.model.IdDto
+import ru.bezdar.bank.app.api.common.model.toDto
 import ru.bezdar.bank.app.api.common.model.toResponse
 import ru.bezdar.bank.app.api.tariff.model.response.TariffResponse
 import ru.bezdar.bank.app.api.tariff.model.response.toResponse
 import ru.bezdar.bank.app.common.serializers.InstantAsDateStringSerializer
 import ru.bezdar.bank.app.common.serializers.UUIDAsStringSerializer
-import ru.bezdar.bank.domain.common.model.User
 import ru.bezdar.bank.domain.loan.model.Loan
 import java.time.Instant
 import java.util.UUID
@@ -30,7 +30,7 @@ data class LoanResponse(
 
 fun Loan.toResponse() = LoanResponse(
     id = id.toResponse(),
-    userId = null,
+    userId = userId.toDto(),
     tariff = tariff.toResponse(),
     bankAccountId = bankAccountId,
     startDate = startDate,

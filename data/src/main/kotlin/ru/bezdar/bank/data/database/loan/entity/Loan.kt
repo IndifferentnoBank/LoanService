@@ -20,6 +20,7 @@ object LoanTable : UUIDTable("loans") {
     val paidSum = double("paid_sum")
     val monthlyPayment = double("monthly_payment")
     val debt = double("debt")
+    val userId = uuid("user_id")
 
     val tariffId = reference("tariff_id", TariffTable.id)
 }
@@ -32,6 +33,7 @@ class LoanEntity(id: EntityID<UUID>) : UUIDEntity(id) {
     var paidSum by LoanTable.paidSum
     var monthlyPayment by LoanTable.monthlyPayment
     var debt by LoanTable.debt
+    var userId by LoanTable.userId
 
     var tariff by TariffEntity referencedOn LoanTable.tariffId
 
@@ -47,4 +49,5 @@ fun LoanEntity.toDomain() = Loan(
     paidSum = paidSum,
     monthlyPayment = monthlyPayment,
     debt = debt,
+    userId = userId,
 )

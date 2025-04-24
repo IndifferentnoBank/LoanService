@@ -19,11 +19,11 @@ import java.util.UUID
 import kotlin.text.indexOf
 
 suspend fun getRequest(bankAccountId: UUID, userId: UUID, token: String) : GetBankAccountResponse {
-    val response = client.get("http://localhost:5086/bank_accounts/${bankAccountId}?userId=${userId}") {
+    val response = client.get("http://localhost:5086/core_service/bank_accounts/${bankAccountId}") {
         contentType(ContentType.Application.Json)
         header(HttpHeaders.Authorization, token)
     }
-    return if (response.status == HttpStatusCode.OK) {
+    if (response.status == HttpStatusCode.OK) {
         return response.body<GetBankAccountResponse>()
     } else {
         throw BankAccountNotFount()
@@ -33,7 +33,7 @@ suspend fun getRequest(bankAccountId: UUID, userId: UUID, token: String) : GetBa
 suspend fun createTransaction(bankAccountId: UUID, userId: UUID, requestBody: TransactionsBody, token: String)
 : CreateTransactionResponse {
     val response = client.post(
-        "http://localhost:5086/bank_accounts/${bankAccountId}/transactions?userId=${userId}"
+        "http://localhost:5086/core_service/bank_accounts/${bankAccountId}/transactions?userId=${userId}"
     ) {
         contentType(ContentType.Application.Json)
         setBody(requestBody)

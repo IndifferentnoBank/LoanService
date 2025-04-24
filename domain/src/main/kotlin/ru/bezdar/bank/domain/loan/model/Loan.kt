@@ -14,4 +14,5 @@ data class Loan(
     val paidSum: Double,
     val monthlyPayment: Double,
     val debt: Double,
+    val userId: UUID,
 )
