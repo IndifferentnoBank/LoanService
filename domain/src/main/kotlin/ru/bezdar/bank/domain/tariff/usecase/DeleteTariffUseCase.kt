@@ -1,5 +1,6 @@
 package ru.bezdar.bank.domain.tariff.usecase
 
+import ru.bezdar.bank.domain.common.manage.randomDrop
 import ru.bezdar.bank.domain.common.model.Id
 import ru.bezdar.bank.domain.common.usecase.UseCase
 import ru.bezdar.bank.domain.tariff.TariffDbDataSource
@@ -11,6 +12,7 @@ class DeleteTariffUseCaseImpl(
     private val tariffDbDataSource: TariffDbDataSource,
 ) : DeleteTariffUseCase {
     override suspend fun execute(param: Id<Tariff>) {
+        randomDrop()
         tariffDbDataSource.deleteTariff(param)
     }
 }

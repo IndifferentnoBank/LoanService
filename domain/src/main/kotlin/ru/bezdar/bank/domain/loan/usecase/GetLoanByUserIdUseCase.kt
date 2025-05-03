@@ -1,5 +1,6 @@
 package ru.bezdar.bank.domain.loan.usecase
 
+import ru.bezdar.bank.domain.common.manage.randomDrop
 import ru.bezdar.bank.domain.common.model.Id
 import ru.bezdar.bank.domain.common.model.User
 import ru.bezdar.bank.domain.common.usecase.UseCase
@@ -12,6 +13,7 @@ class GetLoanByUserIdUseCaseImpl(
     private val loanDbDataSource: LoanDbDataSource,
 ) : GetLoanByUserIdUseCase {
     override suspend fun execute(param: Id<User>): List<Loan> {
+        randomDrop()
         return loanDbDataSource.getLoanByUserId(param)
     }
 }

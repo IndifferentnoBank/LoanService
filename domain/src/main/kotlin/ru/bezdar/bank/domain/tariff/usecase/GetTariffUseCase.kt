@@ -1,5 +1,6 @@
 package ru.bezdar.bank.domain.tariff.usecase
 
+import ru.bezdar.bank.domain.common.manage.randomDrop
 import ru.bezdar.bank.domain.common.usecase.UseCaseWithoutParams
 import ru.bezdar.bank.domain.tariff.TariffDbDataSource
 import ru.bezdar.bank.domain.tariff.model.Tariff
@@ -10,6 +11,7 @@ class GetTariffUseCaseImpl(
     private val tariffDbDataSource: TariffDbDataSource,
 ) : GetTariffUseCase {
     override suspend fun execute(): List<Tariff> {
+        randomDrop()
         return tariffDbDataSource.getTariff()
     }
 }

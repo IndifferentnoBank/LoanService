@@ -1,6 +1,7 @@
 package ru.bezdar.bank.domain.loan.usecase
 
 import ru.bezdar.bank.domain.common.error.LoanAlreadyPaid
+import ru.bezdar.bank.domain.common.manage.randomDrop
 import ru.bezdar.bank.domain.common.usecase.UseCase
 import ru.bezdar.bank.domain.loan.LoanDbDataSource
 import ru.bezdar.bank.domain.loan.model.Loan
@@ -16,6 +17,7 @@ class PayLoanUseCaseImpl(
     private val loanDbDataSource: LoanDbDataSource,
 ) : PayLoanUseCase {
     override suspend fun execute(param: PayLoanParams): Loan {
+        randomDrop()
         val loanAlreadyPaid = loanDbDataSource.checkLoanPaid(param.loanId)
         if (loanAlreadyPaid) throw LoanAlreadyPaid()
 

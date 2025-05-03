@@ -2,6 +2,7 @@ package ru.bezdar.bank.domain.tariff.usecase
 
 import ru.bezdar.bank.domain.common.error.InvalidRate
 import ru.bezdar.bank.domain.common.error.TariffAlreadyExists
+import ru.bezdar.bank.domain.common.manage.randomDrop
 import ru.bezdar.bank.domain.common.usecase.UseCase
 import ru.bezdar.bank.domain.tariff.TariffDbDataSource
 import ru.bezdar.bank.domain.tariff.model.Tariff
@@ -14,6 +15,7 @@ class CreateTariffUseCaseImpl(
 ) : CreateTariffUseCase {
 
     override suspend fun execute(param: NewTariffParams): Tariff {
+        randomDrop()
         val isTariffAlreadyExists = tariffDbDataSource.checkTariffExists(param.name)
         if (isTariffAlreadyExists) throw TariffAlreadyExists()
         if (param.interestRate < 0) throw InvalidRate()

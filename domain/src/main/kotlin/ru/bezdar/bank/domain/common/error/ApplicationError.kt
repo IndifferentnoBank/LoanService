@@ -29,3 +29,5 @@ class LoanAlreadyPaid(override val message: String? = "Loan already paid") : Con
 abstract class PaymentRequiredError : ApplicationError()
 
 class PaymentIsNotConfirmed(override val message: String? = "Payment is not confirmed") : PaymentRequiredError()
+
+class InternalServerError(override val message: String? = "Oh... Something went wrong") : ApplicationError()
